@@ -23,7 +23,9 @@ class JsonSchema extends \Codeception\Module
         $response = $this->getModule('REST')->response;
 
         $validator = new Validator();
-        $validator->validate(json_decode($response), (object)['$ref' => 'file://' . $schemaRealPath]);
+        $schemaRef = (object)['$ref' => 'file://' . $schemaRealPath];
+        $decodedResponse = json_decode($response);
+        $validator->validate($decodedResponse, $schemaRef);
 
         $message = '';
         $isValid = $validator->isValid(); 
