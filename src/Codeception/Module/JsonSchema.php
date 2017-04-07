@@ -2,7 +2,9 @@
 
 namespace Codeception\Module;
 
+use JsonSchema\Uri\UriResolver;
 use JsonSchema\Uri\UriRetriever;
+use JsonSchema\Validator;
 
 /**
 * Json schema module for codeception
@@ -16,26 +18,19 @@ class JsonSchema extends \Codeception\Module
     */
     public function canSeeResponseIsValidOnSchemaFile($schema)
     {
-        $schemaPath = realpath($schema);
-       
-        $retriever = new \JsonSchema\Uri\UriRetriever();
-        $schema = $retriever->retrieve('file://' .$schemaPath);
-
-        $refResolver = new \JsonSchema\RefResolver($retriever);
-        $refResolver->resolve($schema, 'file://' . $schemaPath);
+        $schemaRealPath = realpath($schema);
 
         $response = $this->getModule('REST')->response;
 
-        $validator = new \JsonSchema\Validator();
-        $validator->setUriRetriever(new UriRetriever());
-        $validator->check(json_decode($response), $schema);
+        $validator = new Validator();
+        $validator->validate(json_decode($response), (object)['$ref' => 'file://' . $schemaRealPath]);
 
         $message = '';
         $isValid = $validator->isValid(); 
         if (! $isValid) {
-            $message = "JSON does not validate. Violations:\n";
+            $message = 'JSON does not validate. Violations:\n';
             foreach ($validator->getErrors() as $error) {
-                $message .= $error['property']." ".$error['message'].PHP_EOL;
+                $message .= $error['property'].' '.$error['message'].PHP_EOL;
             }
         }
 
