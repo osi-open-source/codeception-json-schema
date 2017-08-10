@@ -2,40 +2,45 @@
 
 namespace Codeception\Module;
 
-use JsonSchema\Uri\UriResolver;
-use JsonSchema\Uri\UriRetriever;
+use Codeception\Module;
 use JsonSchema\Validator;
 
 /**
-* Json schema module for codeception
-*/
-class JsonSchema extends \Codeception\Module
+ * Json schema module for codeception
+ */
+class JsonSchema extends Module
 {
     /**
-    *  Validate response by json schema
-    *
-    *  @param string $schema path to json schema file
-    */
-    public function canSeeResponseIsValidOnSchemaFile($schema)
+     * Validate response by json schema
+     * @param string $schemaRef object or json string
+     */
+    public function seeResponseIsValidOnSchema($schemaRef)
     {
-        $schemaRealPath = realpath($schema);
-
         $response = $this->getModule('REST')->response;
 
         $validator = new Validator();
-        $schemaRef = (object)['$ref' => 'file://' . $schemaRealPath];
         $decodedResponse = json_decode($response);
         $validator->validate($decodedResponse, $schemaRef);
 
         $message = '';
-        $isValid = $validator->isValid(); 
-        if (! $isValid) {
-            $message = 'JSON does not validate. Violations:'.PHP_EOL;
+        $isValid = $validator->isValid();
+        if (!$isValid) {
+            $message = 'JSON does not validate. Violations:' . PHP_EOL;
             foreach ($validator->getErrors() as $error) {
-                $message .= $error['property'].' '.$error['message'].PHP_EOL;
+                $message .= $error['property'] . ' ' . $error['message'] . PHP_EOL;
             }
         }
 
         $this->assertTrue($isValid, $message);
+    }
+
+    /**
+     * Validate response by json schema
+     * @param string $schema path to json schema file
+     */
+    public function seeResponseIsValidOnSchemaFile($schema)
+    {
+        $schemaRef = (object)['$ref' => 'file://' . realpath($schema)];
+        $this->seeResponseIsValidOnSchema($schemaRef);
     }
 }
