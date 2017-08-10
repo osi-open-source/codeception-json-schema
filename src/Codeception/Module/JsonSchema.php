@@ -30,7 +30,7 @@ class JsonSchema extends \Codeception\Module
         $message = '';
         $isValid = $validator->isValid(); 
         if (! $isValid) {
-            $message = 'JSON does not validate. Violations:\n';
+            $message = 'JSON does not validate. Violations:'.PHP_EOL;
             foreach ($validator->getErrors() as $error) {
                 $message .= $error['property'].' '.$error['message'].PHP_EOL;
             }
