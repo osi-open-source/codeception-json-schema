@@ -1,9 +1,13 @@
 {
-  "name": "cnam/codeception-json-schema",
+  "name": "digitaladapt/codeception-json-schema",
   "type": "library",
   "description": "Json schema module for validate response by json schema for codeception test framework",
   "license": "MIT",
   "authors": [
+    {
+      "name": "Andrew Stowell",
+      "email": "digitaladapt@gmail.com"
+    },
     {
       "name": "Cnam",
       "email": "cnam812@gmail.com"
