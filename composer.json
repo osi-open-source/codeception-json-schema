@@ -2,6 +2,8 @@
   "name": "digitaladapt/codeception-json-schema",
   "type": "library",
   "description": "Json schema module for validate response by json schema for codeception test framework",
+  "keywords":["json", "schema", "functional testing"],
+  "homepage": "https://github.com/digitaladapt/codeception-json-schema",
   "license": "MIT",
   "authors": [
     {
@@ -21,6 +23,7 @@
   },
 
   "require": {
+    "php": "^5.4||^7.0",
     "justinrainbow/json-schema": "^5.2"
   },
   "require-dev": {

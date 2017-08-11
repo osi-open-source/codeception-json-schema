@@ -10,6 +10,7 @@ use JsonSchema\Validator;
  */
 class JsonSchema extends Module
 {
+
     /**
      * Validate response by json schema
      * @param string $schemaRef object or json string
