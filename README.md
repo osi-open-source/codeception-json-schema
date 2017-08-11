@@ -71,18 +71,26 @@ class MessageApiCest
 ```
 
 ## Also See
-Codeception has a built-in syntax for simple json matches, however it is not compatible with json schema,
-which is why this was created.
+Codeception has a [built-in syntax for simple json matches](http://codeception.com/docs/modules/REST#seeResponseMatchesJsonType),
+however it is not compatible with json schema, which is why this was created.
 
 ```php
 <?php
-$I->seeResponseMatchesJsonType(
-    [
-        'message' => 'string',
-    ]
-);
+class MessageApiCest
+{
+    public function eTest(ApiTester $I)
+    {
+        /* call api */
+        $I->wantTo('Ensure API Returns Json which matches type.');
+        $I->sendGET('/path/to/api');
+
+        /* this type expects the api to return something like {"message": "SOME_STRING"} */
+        $I->seeResponseMatchesJsonType([
+            'message' => 'string',
+        ]);
+    }
+}
 ```
-<http://codeception.com/docs/modules/REST#seeResponseMatchesJsonType>
 
 ## Contributing
 If you notice anything wrong or have any suggestions on how to make this better, please open an issue.
