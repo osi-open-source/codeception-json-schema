@@ -1,9 +1,9 @@
 {
-  "name": "digitaladapt/codeception-json-schema",
+  "name": "ibpavlov/codeception-json-schema",
   "type": "library",
   "description": "Json schema module for validate response by json schema for codeception test framework",
   "keywords":["json", "schema", "functional testing"],
-  "homepage": "https://github.com/digitaladapt/codeception-json-schema",
+  "homepage": "https://github.com/ibpavlov/codeception-json-schema",
   "license": "MIT",
   "authors": [
     {
