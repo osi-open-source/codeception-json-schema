@@ -27,10 +27,10 @@
   },
 
   "require": {
-    "php": "^5.4||^7.0",
-    "justinrainbow/json-schema": "^5.2"
+    "php": "^7.0",
+    "justinrainbow/json-schema": "*"
   },
   "require-dev": {
-    "codeception/codeception": "^2.2"
+    "codeception/codeception": "*"
   }
 }
