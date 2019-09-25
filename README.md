@@ -3,7 +3,7 @@ Codeception Module to validate json on a schema.
 
 ## Installation
 ```bash
-composer require digitaladapt/codeception-json-schema
+composer require osi-open-source/codeception-json-schema
 ```
 
 ## Usage
